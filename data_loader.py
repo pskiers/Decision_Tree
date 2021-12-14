@@ -3,7 +3,7 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 
 
-def get_formated_data():
+def get_formated_data(bins):
     dataset = load_iris()
     data = dataset.data
 
@@ -11,7 +11,6 @@ def get_formated_data():
         column = [data[j][i] for j in range(len(data))]
         max_val = max(column)
         min_val = min(column)
-        bins = 6
         for j in range(len(data)):
             if data[j][i] < min_val + ((max_val - min_val)/bins):
                 data[j][i] = 0
@@ -22,7 +21,6 @@ def get_formated_data():
                     if data[j][i] < min_val + ((k+1) * (max_val - min_val)/bins) and data[j][i] >= min_val + (k * (max_val - min_val)/bins):
                         data[j][i] = k
                         break
-
 
     labels = dataset.target
     classes = list(set(labels))
