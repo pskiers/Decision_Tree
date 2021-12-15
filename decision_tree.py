@@ -58,14 +58,21 @@ class DecisionTree:
         self.leaves.append(self.root)
 
         train_acc = self.evaluate(self.train_data, self.train_labels)
-        val_acc = self.evaluate(self.validation_data, self.validation_labels)
-        print("Max depth:  0", ";    Train accuracy: ", train_acc, ";    Validation accuracy: ", val_acc)
-
+        print("Max depth:  0", ";    Train accuracy: ", train_acc, end='')
+        if self.validation_data is not None:
+            val_acc = self.evaluate(self.validation_data, self.validation_labels)
+            print(";    Validation accuracy: ", val_acc)
+        else:
+            print("\n")
         for i in range(self.max_depth):
             self.train()
             train_acc = self.evaluate(self.train_data, self.train_labels)
-            val_acc = self.evaluate(self.validation_data, self.validation_labels)
-            print("Max depth: ", i+1, ";    Train accuracy: ", train_acc, ";    Validation accuracy: ", val_acc)
+            print("Max depth: ", i+1, ";    Train accuracy: ", train_acc ,end='')
+            if self.validation_data is not None:
+                val_acc = self.evaluate(self.validation_data, self.validation_labels)
+                print(";    Validation accuracy: ", val_acc)
+            else:
+                print("\n")
 
 
     def evaluate(self, data, labels):
